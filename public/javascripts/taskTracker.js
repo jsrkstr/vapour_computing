@@ -4,15 +4,15 @@ var TaskTracker = function(){
 
 		var networkManager = new NetworkManager(3002);
 		networkManager.addListener("task", this.processTask);		
-		Console.log("TaskTracker Initialised");
+		Console.log("Task Tracker Initialised", "debug");
 
 	};
 
 
 	this.processTask = function(job, response){
 
-		Console.log("Received New " + job.type +" Task");
-		Console.log(job);
+		Console.log("Received New " + job.type +" Task", "debug");
+		//Console.log(job);
 		var startTime = Date.now();
 
     	var results = {};
@@ -44,13 +44,10 @@ var TaskTracker = function(){
      
       	Console.log('Task Completed');
       	Console.log("Execution Time : " + executionTime + " ms");
-      	Console.log('Results');
-		Console.log(results);
 
 		response(results);
 	}
 
-	this.init();
 }
 
 // $.ready(function(){
@@ -60,9 +57,11 @@ var TaskTracker = function(){
 // });
 
 window.onload = function(){
-	log.toggle();
-	$("#blackbird").appendTo($("#console")).attr("class", "bbTopLeft bbLarge").css({ position : "relative", float :"left"});
-	var t1 = new TaskTracker();
+	$("#blackbird").appendTo($("#console")).attr("class", "bbTopLeft bbLarge").css({ display : "block", position : "relative", float :"left"})
+	$("#blackbird .header .left").append('<div style="font-weight:900; padding : 17px 0px 0px 90px; color: #fff">Client Log</div>')
+
+	var tt = new TaskTracker();
+	$("#start-button").one("click", $.proxy(tt.init, tt));
 }
 
 

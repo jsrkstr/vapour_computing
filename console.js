@@ -8,6 +8,7 @@ var Console = {
 		var msg = m || "hello";
 
 		io.sockets.emit(type, msg);
+		//console.log(msg);
 	}
 
 };

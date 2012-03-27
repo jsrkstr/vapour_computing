@@ -3,6 +3,7 @@
 		<script type="text/javascript" src="/blackbirdjs/blackbird.js"></script>
 		<link type="text/css" rel="Stylesheet" href="/blackbirdjs/blackbird.css" />
 
+		<script src="/javascripts/jquery.js"></script>
 		<script src="/javascripts/socket.io.js"></script>
 		<script src="/javascripts/networkManagerClient.js"></script>
 
@@ -10,8 +11,8 @@
 			var networkManager = new NetworkManager(3001);
 
 			window.onload = function(){
-				log.toggle();
-				document.getElementById("blackbird").setAttribute("class", "bbTopLeft bbLarge");
+				$("#blackbird").attr("class", "bbTopLeft bbLarge").css({display : "block"});
+				$("#blackbird .header .left").append('<div style="font-weight:900; padding : 17px 0px 0px 90px; color: #fff">Server Log</div>')
 			}
 
 			networkManager.addListener("info", function(msg){

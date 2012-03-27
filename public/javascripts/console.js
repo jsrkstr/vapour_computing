@@ -14,6 +14,8 @@ Console = {
 			case "error" : log.error(msg);
 				break;
 		}
+
+		console.log(msg);
 	}
 
 };

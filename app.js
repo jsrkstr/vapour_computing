@@ -36,7 +36,7 @@ app.configure('production', function(){
 //app.get('/', routes.index);
 
 app.listen(3000);
-Console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+console.log("Vapour Computing server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 
 var job = new Job("./job/job", "./job/data");

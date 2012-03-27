@@ -24,7 +24,7 @@ function reduce(allSteps) {
 
 var config = {
   dataSplits : 50,
-  startNodes : 1
+  startNodes : 2
 };
 
 exports.map = map;

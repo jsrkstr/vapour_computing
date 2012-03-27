@@ -24,33 +24,41 @@ var JobTracker = function(Job){
 
 		var NetworkManager = require("./networkManager").NetworkManager;
 		NetworkManager.init();
-		//NetworkManager.addListener('connection', this.assignTask);
+
 		NetworkManager.addListener('connection', this.registerTaskTracker);
 		NetworkManager.addListener("disconnect", this.disconnected);
-		Console.log("JobTracker Initialized");
-		Console.log('Waiting for Task Trackers to connect');
+
+		console.log("JobTracker Initialized");
+		console.log('Waiting for Task Trackers to connect');
 	};
 
 
 
 
 	this.registerTaskTracker = function(client){
+		
+		var id = "tt" + (taskTrackers.length + 1);
+		
 		taskTrackers.push(client);
-		Console.log('Task Tracker connected');
 
-		if(taskTrackers.length == job.config.startNodes){
-			for(var i=0; i < taskTrackers.length; i++){
-				othis.assignTask(taskTrackers[i]);
+		Console.log('Task Tracker '+ id +' connected', "debug");
+
+		client.set("id",  id, function(){
+
+			if(taskTrackers.length == job.config.startNodes){
+				for(var i=0; i < taskTrackers.length; i++){
+					othis.assignTask(taskTrackers[i]);
+				}
+				othis.startTime = Date.now();
 			}
-			othis.startTime = Date.now();
-		}
+		});
 	};
 
 
 
 
 	this.disconnected = function(){
-		Console.log("client has disconnected");
+		//Console.log("client has disconnected", "error");
 	};
 
 
@@ -90,7 +98,9 @@ var JobTracker = function(Job){
 
 		client.emit("task", task, othis.saveResults);
 
-		Console.log('assigning task');
+		client.get("id", function(e, id){
+			Console.log('Assigning task to Task Tracker ' + id, "debug");
+		});
 		
 	};
 
@@ -98,7 +108,10 @@ var JobTracker = function(Job){
 
 
 	this.saveResults = function(results){
-		Console.log("saving results");
+		this.get("id", function(e, id){
+			Console.log("Saving results from Task Tracker " + id);
+		});
+
 		
 		var taskTime = Date.now() - results.timestamp;
 		var networkTime = taskTime - results.executionTime;
@@ -127,10 +140,11 @@ var JobTracker = function(Job){
 	this.showResults = function(results){
 		this.endTime = Date.now();
 		this.totalTime = this.endTime - this.startTime;
-		Console.log("Job Completed");
+		Console.log("Job Completed", "debug");
 		Console.log("Total Time : " + this.totalTime + " ms");
-		Console.log("Showing Results");
-		Console.log(results);
+		Console.log("Showing Results - ");
+		Console.log(JSON.stringify(results));
+		console.log(results);
 	},
 
 
@@ -152,7 +166,7 @@ var JobTracker = function(Job){
 
 		tasks.push(reduceTask);		
 
-		Console.log('Creating reduce task');
+		Console.log('Creating reduce task', "warn");
 
 		return true;
 	};
@@ -161,7 +175,7 @@ var JobTracker = function(Job){
 
 
 	this.createMapTasks = function(){
-		Console.log('Creating map tasks');
+		Console.log('Creating map tasks', "warn");
 		var dataSplits = this.splitData(job.data, job.config.dataSplits);
 
 		for(var i=0; i < job.config.dataSplits; i++){
