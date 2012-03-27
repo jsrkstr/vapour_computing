@@ -10,8 +10,8 @@ var NetworkManager = {
 
 
 	init : function(){
-		var io = require('socket.io').listen(8080);	
-		io.set('log level', 1);
+		var io = require('socket.io').listen(3002);	
+		io.set('log level', 0);
 		NetworkManager.sockets = io.sockets;
 	},
 

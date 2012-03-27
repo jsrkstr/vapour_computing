@@ -2,17 +2,17 @@ var TaskTracker = function(){
 
 	this.init = function(){
 
-		var networkManager = new NetworkManager();
+		var networkManager = new NetworkManager(3002);
 		networkManager.addListener("task", this.processTask);		
-		console.log("TaskTracker Initialised");
-		console.log('.');
-		console.log('.');
+		Console.log("TaskTracker Initialised");
+
 	};
+
 
 	this.processTask = function(job, response){
 
-		console.log("Received New " + job.type +" Task");
-		console.log(job);
+		Console.log("Received New " + job.type +" Task");
+		Console.log(job);
 		var startTime = Date.now();
 
     	var results = {};
@@ -42,19 +42,28 @@ var TaskTracker = function(){
 
       	results.executionTime = executionTime;
      
-      	console.log('Task Completed');
-      	console.log("Execution Time : " + executionTime + " ms");
-      	console.log('Results');
-		console.log(results);
-		console.log('.');
+      	Console.log('Task Completed');
+      	Console.log("Execution Time : " + executionTime + " ms");
+      	Console.log('Results');
+		Console.log(results);
+
 		response(results);
 	}
 
 	this.init();
 }
 
-var t1 = new TaskTracker();
+// $.ready(function(){
+// 	log.toggle();
+// 	$("#blackbird").attr("class", "bbBottomLeft bbLarge");
+// 	var t1 = new TaskTracker();
+// });
 
+window.onload = function(){
+	log.toggle();
+	$("#blackbird").appendTo($("#console")).attr("class", "bbTopLeft bbLarge").css({ position : "relative", float :"left"});
+	var t1 = new TaskTracker();
+}
 
 
 

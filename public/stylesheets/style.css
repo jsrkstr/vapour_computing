@@ -1,8 +1,6 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
+#server-console {
+	width: 500px;
+	height: 600px;
+	border: none;
+	float: right;
 }

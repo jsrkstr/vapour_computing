@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<script type="text/javascript" src="/blackbirdjs/blackbird.js"></script>
+		<link type="text/css" rel="Stylesheet" href="/blackbirdjs/blackbird.css" />
+
+		<script src="/javascripts/socket.io.js"></script>
+		<script src="/javascripts/networkManagerClient.js"></script>
+
+		<script>
+			var networkManager = new NetworkManager(3001);
+
+			window.onload = function(){
+				log.toggle();
+				document.getElementById("blackbird").setAttribute("class", "bbTopLeft bbLarge");
+			}
+
+			networkManager.addListener("info", function(msg){
+				log.info(msg);
+			});
+
+			networkManager.addListener("debug", function(msg){
+				log.debug(msg);
+			});
+
+			networkManager.addListener("warn", function(msg){
+				log.warn(msg);
+			});
+			networkManager.addListener("error", function(msg){
+				log.error(msg);
+			});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

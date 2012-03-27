@@ -6,7 +6,8 @@
 var express = require('express')
   , routes = require('./routes')
   , Job = require("./job").Job
-  , JobTracker = require("./jobTracker").JobTracker;
+  , JobTracker = require("./jobTracker").JobTracker
+  , Console = require("./console").Console;
 
 var app = module.exports = express.createServer();
 
@@ -30,13 +31,13 @@ app.configure('production', function(){
 });
 
 
-var job = new Job("./job/job", "./job/data");
-var jobTracker = new JobTracker(job);	
-
-
 // Routes
 
 //app.get('/', routes.index);
 
 app.listen(3000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+Console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+
+
+var job = new Job("./job/job", "./job/data");
+var jobTracker = new JobTracker(job); 

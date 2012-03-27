@@ -1,9 +1,9 @@
-var NetworkManager = function(){ 
+var NetworkManager = function(port){ 
 
 	this.socket = {};
 
-	this.init = function(){
-		this.socket = io.connect('http://'+ document.location.hostname +':8080');
+	this.init = function(port){
+		this.socket = io.connect('http://'+ document.location.hostname +':' + port);
 	};
 
 
@@ -11,6 +11,6 @@ var NetworkManager = function(){
 		this.socket.on(event, listener);
 	};
 
-	this.init();
+	this.init(port);
 
 };

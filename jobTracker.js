@@ -1,3 +1,4 @@
+var Console = require("./console").Console;
 
 var JobTracker = function(Job){
 
@@ -26,10 +27,8 @@ var JobTracker = function(Job){
 		//NetworkManager.addListener('connection', this.assignTask);
 		NetworkManager.addListener('connection', this.registerTaskTracker);
 		NetworkManager.addListener("disconnect", this.disconnected);
-		console.log("JobTracker Initialized");
-		console.log('.');
-		console.log('Waiting for Task Trackers to connect');
-		console.log('.');
+		Console.log("JobTracker Initialized");
+		Console.log('Waiting for Task Trackers to connect');
 	};
 
 
@@ -37,8 +36,7 @@ var JobTracker = function(Job){
 
 	this.registerTaskTracker = function(client){
 		taskTrackers.push(client);
-		console.log('Task Tracker connected');
-		console.log('.');
+		Console.log('Task Tracker connected');
 
 		if(taskTrackers.length == job.config.startNodes){
 			for(var i=0; i < taskTrackers.length; i++){
@@ -52,7 +50,7 @@ var JobTracker = function(Job){
 
 
 	this.disconnected = function(){
-		console.log("client has disconnected");
+		Console.log("client has disconnected");
 	};
 
 
@@ -92,8 +90,7 @@ var JobTracker = function(Job){
 
 		client.emit("task", task, othis.saveResults);
 
-		console.log('assigning task');
-		console.log('.');
+		Console.log('assigning task');
 		
 	};
 
@@ -101,15 +98,14 @@ var JobTracker = function(Job){
 
 
 	this.saveResults = function(results){
-		console.log("saving results");
+		Console.log("saving results");
 		
 		var taskTime = Date.now() - results.timestamp;
 		var networkTime = taskTime - results.executionTime;
 
-		console.log("Task Time " + taskTime);
-		console.log("Network Time " + networkTime);
-		console.log("Execution Time " + results.executionTime);
-		console.log('.');
+		Console.log("Task Time " + taskTime);
+		Console.log("Network Time " + networkTime);
+		Console.log("Execution Time " + results.executionTime);
 
 
 		currentTasks--;
@@ -131,13 +127,10 @@ var JobTracker = function(Job){
 	this.showResults = function(results){
 		this.endTime = Date.now();
 		this.totalTime = this.endTime - this.startTime;
-		console.log("Job Completed");
-		console.log('.');
-		console.log("Total Time : " + this.totalTime + " ms");
-		console.log('.');
-		console.log("Showing Results");
-		console.log('.');
-		console.log(results);
+		Console.log("Job Completed");
+		Console.log("Total Time : " + this.totalTime + " ms");
+		Console.log("Showing Results");
+		Console.log(results);
 	},
 
 
@@ -159,7 +152,7 @@ var JobTracker = function(Job){
 
 		tasks.push(reduceTask);		
 
-		console.log('Creating reduce task');
+		Console.log('Creating reduce task');
 
 		return true;
 	};
@@ -168,7 +161,7 @@ var JobTracker = function(Job){
 
 
 	this.createMapTasks = function(){
-		console.log('Creating map tasks');
+		Console.log('Creating map tasks');
 		var dataSplits = this.splitData(job.data, job.config.dataSplits);
 
 		for(var i=0; i < job.config.dataSplits; i++){
