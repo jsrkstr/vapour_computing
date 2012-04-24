@@ -1,0 +1,22 @@
+!!! 5
+html(lang="en")
+  head
+    script(type='text/javascript', src='/javascripts/jquery.js')
+    script(type='text/javascript', src='/blackbirdjs/blackbird.js')
+    script(type='text/javascript', src='/javascripts/console.js')
+    script(type='text/javascript', src='/javascripts/socket.io.js')
+    script(type='text/javascript', src='/javascripts/networkManagerClient.js')
+    script(type='text/javascript', src='/javascripts/taskTracker.js')
+    link(type='text/css', rel='Stylesheet', href='/blackbirdjs/blackbird.css')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
+    title Vapour Computing
+  body
+    #container
+      .top
+        #user-info
+          | Welcome, #{name}
+          a(href='/logout')  Logout
+        h1.left.title Vapour Computing Framework
+        #start-button(title='Click to start')
+      #console
+        iframe#server-console(src='/server_console.html')

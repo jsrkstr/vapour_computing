@@ -1,0 +1,19 @@
+body {
+	background-color : #ccc;
+}
+
+#container {
+	width : 280px;
+	margin : auto;
+}
+
+.box {
+	width: 250px;
+	padding: 15px;
+	border: 1px solid 
+	#999;
+	margin-top: 30px;
+	background-color: #000;
+	border-radius: 10px;
+	color : #cecece;
+}
