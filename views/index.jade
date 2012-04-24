@@ -1,2 +1,47 @@
-h1= title
-p Welcome to #{title}
+!!! 5
+html(lang="en")
+  head
+    title Welcome
+    link(rel='stylesheet', type='text/css', href='/stylesheets/index.css')
+  body
+
+    center
+      h1 Vapour Computing Framework
+
+    - if (typeof(flash) != 'undefined')
+      center
+        p= flash
+
+    #container
+
+      .box
+        center 
+          h3 Login
+        form(method='post', action='/login')
+          label Username:
+            input(name='username', type='text')
+          br
+          br
+          label Password :
+            input(name='password', type='password')
+          br
+          br
+          button(type='submit') Login
+
+      .box
+        center 
+          h3 Register
+        form(method='post', action='/register')
+          label Username:
+            input(name='username', type='text')
+          br 
+          br
+          label Password :
+            input(name='password', type='password')
+          br 
+          br
+          label Password :
+            input(name='confirm_password', type='password')
+          br 
+          br
+          button(type='submit') Register

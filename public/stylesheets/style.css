@@ -37,3 +37,8 @@ body {
 	height : 80px;
 }
 
+
+#user-info {
+	position : absolute;
+	margin-left : 25px;
+}
